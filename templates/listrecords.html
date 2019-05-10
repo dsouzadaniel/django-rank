@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Records{% endblock title %}
+
+{% block scripts %}
+  <script>
+  $( function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  } );
+  </script>
+{% endblock scripts %}
+
+{% block content %}
+
+<ul id="sortable">
+    {% for record in record_list %}
+    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s">
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="font-weight-bold">{{ record.title }}</span> &middot;
+                        <span class="text-muted">||  AE: {{ record.feature_a }}  |  PAT: {{ record.feature_b }}  |  DRUG: {{ record.feature_c}}  |  PRECOND: {{ record.feature_d }}  |  MAH: {{ record.feature_e }}  ||</span>
+                    </div>
+                    <div class="body">
+                        {{ record.abstract }}
+                    </div>
+                </div>
+
+    <br/>
+    </span></li>
+    {% endfor %}
+
+    </ul>
+{% endblock content %}
