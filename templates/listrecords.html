@@ -34,21 +34,24 @@
 <a href="{% url 'sorting_func'%}"><button type="button" class="btn btn-success btn-md">Save</button></a>
 
 <a href="{% url 'analyze'%}"><button type="button" class="btn btn-warning btn-md">Analyse</button></a>
-
+<br>
+<br>
 <!--Query <p></p>-->
 <ul id="sortable">
     {% for record in record_list %}
     <li id="record-{{ record.id }}" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s">
-
                 <div class="card">
                     <div class="card-header">
                         <span class="text-muted">&middot;Rank : {{record.order}}&middot;</span>
                         <span class="font-weight-bold">{{ record.title }}</span> &raquo;
-                        <span class="text-muted">||  AE: {{ record.feature_a }}  &bull;  PAT: {{ record.feature_b }}  &bull;  DRUG: {{ record.feature_c}}  &bull;  PRECOND: {{ record.feature_d }}  &bull;  MAH: {{ record.feature_e }}  ||</span>
+                        <span class="text-muted">||  AE: {{ record.adverse_effect }}  &bull;  PAT: {{ record.identifiable_patient }}  &bull;  DRUG: {{ record.identifiable_drug}}  &bull;  PRECOND: {{ record.precondition }}  &bull;  MAH: {{ record.mah }}  ||</span>
                     </div>
                     <div class="body">
                         {{ record.abstract }}
                     </div>
+                  <div class="card-footer text-right text-muted">
+                    <a href="{% url 'edit_record' record.pk %}">Edit</a>
+                  </div>
                 </div>
 
     <br/>

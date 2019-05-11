@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
 
 from .models import Record
 
@@ -12,6 +12,17 @@ class HomePageView(ListView):
     model = Record
     template_name = 'listrecords.html'
     context_object_name = 'record_list'
+
+class EditRecordView(UpdateView):
+    model = Record
+    fields = ('title',
+              'abstract',
+              'adverse_effect',
+              'identifiable_patient',
+              'identifiable_drug',
+              'precondition',
+              'mah',)
+    template_name = 'updaterecord.html'
 
 
 @csrf_exempt
@@ -51,11 +62,11 @@ def analysis(request):
     }
 
     for single_record in Record.objects.all():
-        X.append([single_record.feature_a,
-                  single_record.feature_b,
-                  single_record.feature_c,
-                  single_record.feature_d,
-                  single_record.feature_e
+        X.append([single_record.adverse_effect,
+                  single_record.identifiable_patient,
+                  single_record.identifiable_drug,
+                  single_record.precondition,
+                  single_record.mah
                   ])
         y.append(ranked_weights[str(single_record.order)])
 
