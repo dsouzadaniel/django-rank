@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.views.generic import ListView
@@ -15,9 +15,18 @@ class HomePageView(ListView):
 
 
 @csrf_exempt
-def sortit(request):
+def saveit(request):
+    new_order = []
     for index, record_pk in enumerate(request.POST.getlist('record[]')):
+        new_order.append((index, record_pk))
+    request.session['new_order'] = new_order
+    return HttpResponse('')
+
+
+def sortit(request):
+    for index, record_pk in request.session['new_order']:
         record = get_object_or_404(Record, pk=int(str(record_pk)))
         record.order = index
         record.save()
-    return HttpResponse('')
+    response = redirect('home')
+    return response

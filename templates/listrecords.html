@@ -16,11 +16,11 @@
         axis: 'y',
         update: function (event, ui) {
 	        var serial_data = $(this).sortable('serialize');
-            $('p').text(serial_data);
+            // $('p').text(serial_data);
             $.ajax({
                     data: serial_data,
                 type: 'POST',
-                url: '/ajax/sort/'
+                url: '/ajax/save/'
             });
 	}
     }).disableSelection();
@@ -29,7 +29,9 @@
 {% endblock scripts %}
 
 {% block content %}
-Query <p></p>
+<a href="{% url 'home'%}"><button type="button" class="btn btn-secondary">Reset</button></a><a href="{% url 'sorting_func'%}"><button type="button" class="btn btn-primary">Save</button></a>
+
+<!--Query <p></p>-->
 <ul id="sortable">
     {% for record in record_list %}
     <li id="record-{{ record.id }}" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s">
@@ -47,6 +49,5 @@ Query <p></p>
     <br/>
     </span></li>
     {% endfor %}
-
     </ul>
 {% endblock content %}
