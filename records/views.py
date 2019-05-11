@@ -33,17 +33,50 @@ def sortit(request):
 
 
 def analysis(request):
+    def softmax(x):
+        """Compute softmax values for each sets of scores in x."""
+        return np.exp(x) / np.sum(np.exp(x), axis=0)
+
     import numpy as np
     from sklearn.linear_model import LinearRegression
+    X = []
+    y = []
+    ranked_weights = {
+        '0': 10,
+        '1': 8,
+        '2': 6,
+        '3': 4,
+        '4': 2,
+        '5': 1,
+    }
 
-    X = np.array([[12, 1, 4, 5], [1, 2, 6, 7], [24, 2, 1, 1], [2, 3, 3, 2], [6, 6, 3, 2], [5, 3, 2, 4]])
-    y = np.array([10, 8, 6, 4, 2, 1])
+    for single_record in Record.objects.all():
+        X.append([single_record.feature_a,
+                  single_record.feature_b,
+                  single_record.feature_c,
+                  single_record.feature_d,
+                  single_record.feature_e
+                  ])
+        y.append(ranked_weights[str(single_record.order)])
+
+    X = np.array(X)
+    y = np.array(y)
+    #
+    # X = np.array([[12, 1, 4, 5], [1, 2, 6, 7], [24, 2, 1, 1], [2, 3, 3, 2], [6, 6, 3, 2], [5, 3, 2, 4]])
+    # y = np.array([10, 8, 6, 4, 2, 1])
     reg = LinearRegression().fit(X, y)
-    solution = {}
-    weights_and_bias = np.append(reg.coef_, [reg.intercept_], axis=0)
-    max_coeff = max(weights_and_bias)
-    min_coeff = min(weights_and_bias)
-    solution['weights'] = [((i - min_coeff) / (max_coeff - min_coeff)) for i in weights_and_bias]
+    weights = reg.coef_
 
+    solution = {}
+    solution['X'] = X
+    solution['y'] = y
+    solution['feature_names'] = ['Adverse Effect',
+                                 'Identifiable Patient',
+                                 'Drug',
+                                 'Precondition',
+                                 'MAH'
+                                 ]
+    solution['softmax_weights'] = [round(i,2)*100 for i in softmax(weights)]
+    solution['output'] = [(f,s) for f,s in zip(solution['feature_names'], solution['softmax_weights'])]
 
     return render(request, 'analysis.html', context=solution)

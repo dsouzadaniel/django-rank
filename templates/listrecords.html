@@ -38,8 +38,9 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <span class="font-weight-bold">{{ record.title }}</span> &middot;
-                        <span class="text-muted">||  AE: {{ record.feature_a }}  |  PAT: {{ record.feature_b }}  |  DRUG: {{ record.feature_c}}  |  PRECOND: {{ record.feature_d }}  |  MAH: {{ record.feature_e }}  ||        &middot;      ORDER : {{record.order}}&middot;</span>
+                        <span class="text-muted">&middot;Rank : {{record.order}}&middot;</span>
+                        <span class="font-weight-bold">{{ record.title }}</span> &raquo;
+                        <span class="text-muted">||  AE: {{ record.feature_a }}  |  PAT: {{ record.feature_b }}  |  DRUG: {{ record.feature_c}}  |  PRECOND: {{ record.feature_d }}  |  MAH: {{ record.feature_e }}  ||</span>
                     </div>
                     <div class="body">
                         {{ record.abstract }}

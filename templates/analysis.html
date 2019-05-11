@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-The Weights and Bias are :
+<h3>The Feature Importance is given below :</h3>
 <br>
-{% for weight in weights %}
-<p>{{ weight }}</p>
+{% for single_output in output %}
+<h4><p>{{ single_output }}</p></h4>
 {% endfor %}
+<br>
+<a href="{% url 'home' %}"><button type="button" class="btn btn-dark">Back</button></a>
 {% endblock content %}
