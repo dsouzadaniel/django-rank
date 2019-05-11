@@ -6,27 +6,16 @@
   <script>
   $( function() {
     $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
   } );
   </script>
-  <script>
-  $(document).ready(function () {
-    $('ul').sortable({
-        axis: 'y',
-        stop: function (event, ui) {
-	        var data = $(this).sortable('serialize');
-            $('p').text(data);
-	}
-    });
-});
-  </script>
-
 {% endblock scripts %}
 
 {% block content %}
-Query string: <p></p>
+
 <ul id="sortable">
     {% for record in record_list %}
-    <li id="item-{{record.id}}" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s">
+    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s">
 
                 <div class="card">
                     <div class="card-header">
@@ -43,5 +32,4 @@ Query string: <p></p>
     {% endfor %}
 
     </ul>
-
 {% endblock content %}
