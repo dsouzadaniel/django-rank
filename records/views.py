@@ -30,3 +30,20 @@ def sortit(request):
         record.save()
     response = redirect('home')
     return response
+
+
+def analysis(request):
+    import numpy as np
+    from sklearn.linear_model import LinearRegression
+
+    X = np.array([[12, 1, 4, 5], [1, 2, 6, 7], [24, 2, 1, 1], [2, 3, 3, 2], [6, 6, 3, 2], [5, 3, 2, 4]])
+    y = np.array([10, 8, 6, 4, 2, 1])
+    reg = LinearRegression().fit(X, y)
+    solution = {}
+    weights_and_bias = np.append(reg.coef_, [reg.intercept_], axis=0)
+    max_coeff = max(weights_and_bias)
+    min_coeff = min(weights_and_bias)
+    solution['weights'] = [((i - min_coeff) / (max_coeff - min_coeff)) for i in weights_and_bias]
+
+
+    return render(request, 'analysis.html', context=solution)

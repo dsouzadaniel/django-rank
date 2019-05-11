@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+The Weights and Bias are :
+<br>
+{% for weight in weights %}
+<p>{{ weight }}</p>
+{% endfor %}
+{% endblock content %}
