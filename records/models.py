@@ -11,5 +11,10 @@ class Record(models.Model):
     feature_d = models.IntegerField()
     feature_e = models.IntegerField()
 
+    order = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
     def __str__(self):
         return str(self.title)

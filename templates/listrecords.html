@@ -3,27 +3,27 @@
 {% block title %}Records{% endblock title %}
 
 {% block scripts %}
-  <script>
-  $( function() {
-    $( "#sortable" ).sortable();
-    $( "#sortable" ).disableSelection();
-  } );
-  </script>
+<!--  <script>-->
+<!--  $( function() {-->
+<!--    $( "#sortable" ).sortable();-->
+<!--    $( "#sortable" ).disableSelection();-->
+<!--  } );-->
+<!--  </script>-->
 
 <script>
     $(document).ready(function () {
     $('ul').sortable({
         axis: 'y',
-        stop: function (event, ui) {
-	        var data = $(this).sortable('serialize');
-            $('p').text(data);
-            /*$.ajax({
-                    data: oData,
+        update: function (event, ui) {
+	        var serial_data = $(this).sortable('serialize');
+            $('p').text(serial_data);
+            $.ajax({
+                    data: serial_data,
                 type: 'POST',
-                url: '/your/url/here'
-            });*/
+                url: '/ajax/sort/'
+            });
 	}
-    });
+    }).disableSelection();
 });
 </script>
 {% endblock scripts %}
@@ -37,7 +37,7 @@ Query <p></p>
                 <div class="card">
                     <div class="card-header">
                         <span class="font-weight-bold">{{ record.title }}</span> &middot;
-                        <span class="text-muted">||  AE: {{ record.feature_a }}  |  PAT: {{ record.feature_b }}  |  DRUG: {{ record.feature_c}}  |  PRECOND: {{ record.feature_d }}  |  MAH: {{ record.feature_e }}  ||</span>
+                        <span class="text-muted">||  AE: {{ record.feature_a }}  |  PAT: {{ record.feature_b }}  |  DRUG: {{ record.feature_c}}  |  PRECOND: {{ record.feature_d }}  |  MAH: {{ record.feature_e }}  ||        &middot;      ORDER : {{record.order}}&middot;</span>
                     </div>
                     <div class="body">
                         {{ record.abstract }}
