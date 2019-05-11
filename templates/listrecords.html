@@ -9,13 +9,30 @@
     $( "#sortable" ).disableSelection();
   } );
   </script>
+
+<script>
+    $(document).ready(function () {
+    $('ul').sortable({
+        axis: 'y',
+        stop: function (event, ui) {
+	        var data = $(this).sortable('serialize');
+            $('p').text(data);
+            /*$.ajax({
+                    data: oData,
+                type: 'POST',
+                url: '/your/url/here'
+            });*/
+	}
+    });
+});
+</script>
 {% endblock scripts %}
 
 {% block content %}
-
+Query <p></p>
 <ul id="sortable">
     {% for record in record_list %}
-    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s">
+    <li id="record-{{ record.id }}" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s">
 
                 <div class="card">
                     <div class="card-header">
