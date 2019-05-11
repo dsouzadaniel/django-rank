@@ -29,7 +29,11 @@
 {% endblock scripts %}
 
 {% block content %}
-<a href="{% url 'home'%}"><button type="button" class="btn btn-secondary">Reset</button></a><a href="{% url 'sorting_func'%}"><button type="button" class="btn btn-primary">Save</button></a><a href="{% url 'analyze'%}"><button type="button" class="btn btn-dark">Analyse</button></a>
+<a href="{% url 'home'%}"><button type="button" class="btn btn-dark btn-md">Reset</button></a>
+
+<a href="{% url 'sorting_func'%}"><button type="button" class="btn btn-success btn-md">Save</button></a>
+
+<a href="{% url 'analyze'%}"><button type="button" class="btn btn-warning btn-md">Analyse</button></a>
 
 <!--Query <p></p>-->
 <ul id="sortable">
@@ -40,7 +44,7 @@
                     <div class="card-header">
                         <span class="text-muted">&middot;Rank : {{record.order}}&middot;</span>
                         <span class="font-weight-bold">{{ record.title }}</span> &raquo;
-                        <span class="text-muted">||  AE: {{ record.feature_a }}  |  PAT: {{ record.feature_b }}  |  DRUG: {{ record.feature_c}}  |  PRECOND: {{ record.feature_d }}  |  MAH: {{ record.feature_e }}  ||</span>
+                        <span class="text-muted">||  AE: {{ record.feature_a }}  &bull;  PAT: {{ record.feature_b }}  &bull;  DRUG: {{ record.feature_c}}  &bull;  PRECOND: {{ record.feature_d }}  &bull;  MAH: {{ record.feature_e }}  ||</span>
                     </div>
                     <div class="body">
                         {{ record.abstract }}

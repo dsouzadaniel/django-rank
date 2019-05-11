@@ -70,13 +70,13 @@ def analysis(request):
     solution = {}
     solution['X'] = X
     solution['y'] = y
-    solution['feature_names'] = ['Adverse Effect',
-                                 'Identifiable Patient',
-                                 'Drug',
-                                 'Precondition',
-                                 'MAH'
-                                 ]
-    solution['softmax_weights'] = [round(i,2)*100 for i in softmax(weights)]
-    solution['output'] = [(f,s) for f,s in zip(solution['feature_names'], solution['softmax_weights'])]
+    feature_names = ['Adverse Effect',
+                     'Identifiable Patient',
+                     'Drug',
+                     'Precondition',
+                     'MAH'
+                     ]
+    softmax_weights = [str(round(i*100, 2))for i in softmax(weights)]
+    solution['output'] = zip(feature_names, softmax_weights)
 
     return render(request, 'analysis.html', context=solution)

@@ -1,11 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>The Feature Importance is given below :</h3>
+<a href="{% url 'home' %}"><button type="button" class="btn btn-dark btn-md">Back</button></a>
 <br>
-{% for single_output in output %}
-<h4><p>{{ single_output }}</p></h4>
+<br>
+<p class="h2">The Feature Importance is given below :</p>
+<br>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Features</th>
+      <th scope="col">Importance</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for feature_name,feature_importance in output %}
+    <tr>
+      <td>{{ feature_name }}</td>
+      <td>{{ feature_importance }} %</td>
+    </tr>
 {% endfor %}
+  </tbody>
+</table>
 <br>
-<a href="{% url 'home' %}"><button type="button" class="btn btn-dark">Back</button></a>
 {% endblock content %}
