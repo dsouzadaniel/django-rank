@@ -5,7 +5,8 @@ Production Settings for Heroku
 import environ
 
 # If using in your own project, update the project namespace below
-from dynowiki.settings.local import *
+
+from djangorank.settings.local import *
 
 env = environ.Env(
     # set casting, default value
